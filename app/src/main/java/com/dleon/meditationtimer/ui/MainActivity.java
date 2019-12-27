@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.dleon.meditationtimer.R;
+import com.dleon.meditationtimer.presenter.MainActivityPresenter;
 import com.dleon.meditationtimer.presenter.MainActivityView;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView
 {
+  private MainActivityPresenter presenter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -20,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView
     setContentView(R.layout.activity_main);
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+
+
+    this.presenter = new MainActivityPresenter(this);
 
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener()
