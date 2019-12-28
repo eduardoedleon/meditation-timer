@@ -7,7 +7,9 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author eduardo.dleon
  */
-public interface MainActivityView
-{
-  void setTimerText(@NotNull String text);
+public interface MainActivityView {
+
+    void setTimerText(@NotNull String text);
+
+    @NotNull String getTimerText();
 }
