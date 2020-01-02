@@ -13,5 +13,13 @@ public interface MainActivityView {
 
     void showToastMessage(@NotNull String message);
 
+    void showPlayButton();
+
+    void hidePlayButton();
+
+    void showStopButton();
+
+    void hideStopButton();
+
     @NotNull String getTimerText();
 }

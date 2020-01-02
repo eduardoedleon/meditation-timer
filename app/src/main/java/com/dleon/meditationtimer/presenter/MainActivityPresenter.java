@@ -24,11 +24,15 @@ public class MainActivityPresenter {
     }
 
     public void onClickPlayButton() {
-        if (!this.meditationTimer.isTimerRunning()) {
-            this.meditationTimer.start();
-        }else{
-            this.view.showToastMessage("The timer is ");
-        }
+        this.meditationTimer.start();
+        this.view.hidePlayButton();
+        this.view.showStopButton();
+    }
+
+    public void onClickStopButton() {
+        this.meditationTimer.cancel();
+        this.view.showPlayButton();
+        this.view.hideStopButton();
     }
 
     public @NotNull MainActivityView getView() {

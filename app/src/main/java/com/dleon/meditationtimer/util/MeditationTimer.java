@@ -30,7 +30,7 @@ public class MeditationTimer extends CountDownTimer {
 
     public void onTick(long millisUntilFinished) {
 
-        if (!this.timerRunning.get()) {
+        if (!isTimerRunning()) {
             this.timerRunning.set(true);
         }
 
@@ -46,7 +46,7 @@ public class MeditationTimer extends CountDownTimer {
         this.timerRunning.set(false);
     }
 
-    public boolean isTimerRunning() {
+    private boolean isTimerRunning() {
         return this.timerRunning.get();
     }
 }
