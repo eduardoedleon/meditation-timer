@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 public class MainActivityPresenter {
 
     private static final int MILLIS_IN_FUTURE = 30000;
-    private static final int COUNT_DOWN_INTERVAL = 1000;
 
     private final MainActivityView view;
     private final MeditationTimer meditationTimer;
@@ -20,7 +19,7 @@ public class MainActivityPresenter {
     @Contract(pure = true)
     public MainActivityPresenter(@NotNull MainActivityView view) {
         this.view = view;
-        this.meditationTimer = new MeditationTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL, this);
+        this.meditationTimer = new MeditationTimer(view, MILLIS_IN_FUTURE);
     }
 
     public void onClickPlayButton() {
@@ -30,12 +29,8 @@ public class MainActivityPresenter {
     }
 
     public void onClickStopButton() {
-        this.meditationTimer.cancel();
+        this.meditationTimer.stop();
         this.view.showPlayButton();
         this.view.hideStopButton();
-    }
-
-    public @NotNull MainActivityView getView() {
-        return this.view;
     }
 }
