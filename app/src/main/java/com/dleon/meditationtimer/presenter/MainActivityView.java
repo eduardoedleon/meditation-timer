@@ -11,5 +11,7 @@ public interface MainActivityView {
 
     void setTimerText(@NotNull String text);
 
+    void showToastMessage(@NotNull String message);
+
     @NotNull String getTimerText();
 }

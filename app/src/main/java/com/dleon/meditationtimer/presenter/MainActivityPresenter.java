@@ -1,11 +1,10 @@
 package com.dleon.meditationtimer.presenter;
 
-import android.os.CountDownTimer;
+import com.dleon.meditationtimer.util.MeditationTimer;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * Presenter holds the main functions related to the main activity.
@@ -14,32 +13,25 @@ public class MainActivityPresenter {
 
     private static final int MILLIS_IN_FUTURE = 30000;
     private static final int COUNT_DOWN_INTERVAL = 1000;
-    private static final String TIME_FORMAT = "%02d:%02d";
 
     private final MainActivityView view;
-    private CountDownTimer countDownTimer;
+    private final MeditationTimer meditationTimer;
 
     @Contract(pure = true)
     public MainActivityPresenter(@NotNull MainActivityView view) {
         this.view = view;
+        this.meditationTimer = new MeditationTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL, this);
     }
 
     public void onClickPlayButton() {
+        if (!this.meditationTimer.isTimerRunning()) {
+            this.meditationTimer.start();
+        }else{
+            this.view.showToastMessage("The timer is ");
+        }
+    }
 
-        this.countDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
-            public void onTick(long millisUntilFinished) {
-
-                long minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
-                long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
-
-                String time = String.format(TIME_FORMAT, minutes, seconds);
-
-                MainActivityPresenter.this.view.setTimerText(time);
-            }
-
-            public void onFinish() {
-//                mTextField.setText("done!");
-            }
-        }.start();
+    public @NotNull MainActivityView getView() {
+        return this.view;
     }
 }

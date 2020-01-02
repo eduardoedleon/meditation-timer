@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dleon.meditationtimer.R;
 import com.dleon.meditationtimer.presenter.MainActivityPresenter;
@@ -65,6 +66,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityView 
     @Override
     public void setTimerText(@NotNull String text) {
         this.timerTextView.setText(text);
+    }
+
+    @Override
+    public void showToastMessage(@NotNull String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
