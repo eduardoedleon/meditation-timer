@@ -58,6 +58,8 @@ public class MeditationTimer extends CountDownTimer {
 
     public void onFinish() {
         setTimerTextOnView(this.millisInFuture);
+        this.view.showPlayButton();
+        this.view.hideStopButton();
     }
 
     /**
