@@ -11,44 +11,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Setting up ruby on the machine
       - name: Set up Ruby
-        id: set_up_ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: '2.7.2'
 
-      # Gem caching
-      - name: Gem caching
-        id: gem_cache
+      - name: Cache Ruby - Bundler
         uses: actions/cache@v2
-        continue-on-error: true
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
+      - name: Cache Gradle
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches/
+          key: cache-clean-gradle-${{ matrix.os }}-${{ matrix.jdk }}
 
-      # Installing bundler to use fastlane on the machine
-      - name: Setup fastlane
-        id: set_up_fastlane
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/wrapper/
+          key: cache-clean-wrapper-${{ matrix.os }}-${{ matrix.jdk }}
+
+      - name: Grant Permission to Execute
+        run: chmod +x gradlew
+
+      - name: Install bundle
         run: |
-          gem install bundler:1.17.2
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-
-      # Gradle cache
-      - name: Cache Gradle packages
-        id: cache_gradle_packages
-        uses: actions/cache@v2
-        continue-on-error: true
-        with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
-
       - name: Configure Keystore
         run: |
           echo "$ANDROID_KEYSTORE_FILE" > keystore.jks.b64
