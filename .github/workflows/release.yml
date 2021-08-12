@@ -41,6 +41,7 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Setting variables
+        uses: secrethub/actions/env-export@v0.2.1
         env:
           PLAY_CONFIG_JSON: ${{ secrets.PLAY_CONFIG_JSON }}
 
