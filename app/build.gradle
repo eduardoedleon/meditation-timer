@@ -19,6 +19,7 @@ android {
         versionCode 4
         versionName "0.0.4"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
